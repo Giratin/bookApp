@@ -1,0 +1,79 @@
+<div class="modal" id="modal">
+    <div class="modal-background"></div>
+    <div class="loader"></div>
+</div>
+
+
+<div class="container mt-5"> 
+    <div class="row mt-5">
+        <div *ngFor="let item of books" class="col-md-3 col-sm-12 col-lg-3 mb-5">
+            <div class="card" style="width: 18rem; height: 32rem;">
+                <img src="{{item.image}}" class="card-img-top" style="height: 250px ;" alt="{{item.title}}">
+                <div class="card-body">
+                  <h5 class="card-title"> <b>Title :</b>
+                    <span *ngIf="item.title.length > 20">
+                        {{item.title |slice:1:20 }}  ...
+                    </span>
+                    <span *ngIf="item.title.length <= 20">
+                        {{item.title }} 
+                    </span>
+                    </h5>
+                  <p class="card-text text-justify p-1">
+                      <span *ngIf="item.description.length > 100">
+                          {{item.description | slice:1:100 }} ...
+                      </span>
+                      <span *ngIf="item.description.length <= 100">
+                         {{item.description}}
+                     </span>
+                     <span *ngIf="item.description.length == 0">
+                        There is not description Available...
+                    </span>
+                  </p>
+                  
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-primary pr-2 pl-2 mr-5" style="float: left; color: white" (click)="openPopup(item)" > <i class="fa fa-x2 fa-eye"></i> </a>
+                    <a class="btn btn-danger ml-5" style="float: right; color: white"> <i class="fa fa-globe"></i> </a>
+                </div>
+              </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 mb-5">
+            <nav aria-label="Page navigation example" style="display: block;">
+                <ul class="pagination">
+                  <li [class.disabled]="page==1" class="page-item"><a class="page-link" href="#">Previous</a></li>
+                  <li *ngFor="let p of pages;" [class.active]="page==p" class="page-item">
+                      <a class="page-link" *ngIf="p-5 < page" (click)="setPage(p)"> {{p}} </a>
+                    </li>
+                  <li class="page-item" [class.disabled]="page == nbre"><a class="page-link" href="#">Next</a></li>
+                </ul>
+              </nav>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+
+<div class="modal" id="detail">
+    <div class="modal-background" (click)="close()"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Modal title</p>
+        <button class="delete" (click)="close()" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p>
+            <b>Title : </b> {{ detail.title }} <br/> 
+            <b>Description : </b> {{ detail.description }} <br/>
+            
+            <b>Nombre de page : </b>{{ detail.pageCount }}
+
+        </p>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-danger" (click)="close()">Close</button>
+      </footer>
+    </div>
+  </div>
